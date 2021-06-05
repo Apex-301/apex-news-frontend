@@ -36,7 +36,7 @@ Acceptance Tests:
 - Provide error message if no search parameters are entered and search button is pressed.
 - users can add a review if they are logged in.
 
-# User Story 2
+### User Story 2
 
 As a user, I want to search for News by using specific word that I choose
 Feature Tasks
