@@ -11,6 +11,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import SearchByLocation from './SearchByLocation';
 
 class App extends React.Component {
 
@@ -23,11 +24,12 @@ class App extends React.Component {
             <Header />
               <Switch>
                 <Route exact path="/">
-                  {isAuthenticated&&<MyFavoriteBooks></MyFavoriteBooks>}
+                  {/* {isAuthenticated&&<MyFavoriteBooks></MyFavoriteBooks>} */}
               
                 </Route>
                 <Route exact path="/profile">
                   <Profile></Profile>
+                  <SearchByLocation></SearchByLocation>
            
                 </Route>
               </Switch>
