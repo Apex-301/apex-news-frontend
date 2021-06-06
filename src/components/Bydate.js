@@ -16,7 +16,7 @@ class Bydate extends Component {
     this.state = {
       allData: [],
       name: '',
-  date: new Date().toISOString().substring(0, 10),
+  date: '',
 //   pageNum:1,
   showDate: false,
       server: process.env.REACT_APP_SERVER_URL
@@ -25,9 +25,9 @@ class Bydate extends Component {
     console.log("todays date", this.state.date)
   }
 
-  onChange=(e)=>{
-e=e.toISOString().substring(0, 10)
-this.setState({
+  onChange=async(e)=>{
+e=e.toLocaleDateString().substring(0, 10)
+await this.setState({
     date:e
 })
 
@@ -38,38 +38,40 @@ this.getDate()
   
     try {
  
-    const dateNews = await axios.get(`http://api.mediastack.com/v1/news?access_key=5156471d81925efac6c18515de058219&date=${this.state.date}`)
+        const dateNews = await axios.get(`https://newsapi.org/v2/everything?domains=techcrunch.com,thenextweb.com&apiKey=7aec3ee0a4574322be7cfb3704e867a7&language=en&to=${this.state.date}`)
 
     
       // const cats = await axios.get(`${this.state.server}/cat?name=${this.state.name}`);
  
       this.setState({
-          allData:dateNews.data.data,
+          allData:dateNews.data.articles,
           showDate:true
         //   pageNum:this.state.pageNum+1
         //   allData:dateNews.data.articles
       })
+
+
+      console.log(this.state.date)
     } catch (error) {
-      console.log(error)
+        this.setState({
+            allData:[],
+            showDate:false
+          //   pageNum:this.state.pageNum+1
+          //   allData:dateNews.data.articles
+        })
+  
     }
+
+
+    console.log("from get date")
 }
 //First render
-    componentDidMount = async()=> {
-       
-        try {
- 
-            const dateNews = await axios.get(`http://api.mediastack.com/v1/news?access_key=5156471d81925efac6c18515de058219&date=${this.state.date}`)
-        
-            
-              this.setState({
-                  allData:dateNews.data.data,
-                  showDate:true
-        
-              })
-            } catch (error) {
-              console.log(error)
-            }
+    componentDidMount = ()=> {
 
+        this.setState({
+           date: new Date().toLocaleDateString().substring(0, 10),
+        })
+        this.getDate()
       }
     
 
@@ -78,29 +80,8 @@ this.getDate()
       <>
              <Calendar
 
-             onClickDay={this.onChange} 
+             onChange ={this.onChange} 
              />
-
-             {/* <button  onClick={this.getDate}>get date </button > */}
-
-
-
-
-          {/* {
-              this.state.showDate &&
-                this.state.allData.map((item, idx) => {
-                    return (
-                        <div key={idx}>
-
-                            
-                          <p>  {item.title} </p>
-                          
-                        </div>
-                    )
-                })
-            } */}
-       
-
 
        <CardColumns>
        {
@@ -109,7 +90,7 @@ this.getDate()
                             return (
                                 <div key={idx}>
                                     <Card style={{ width: '25rem' }}>
-                                        <Card.Img variant="top" src={item.image} style={{ width: '20rem', height: '16rem', margin: 'auto' }} />
+                                        {/* <Card.Img variant="top" src={item.urlToImage} style={{ width: '20rem', height: '16rem', margin: 'auto' }} /> */}
                                         <Card.Body>
                                             <Card.Title>{item.title}</Card.Title>
                                             <Card.Text style={{ overflow: 'auto', height: '5rem' }}>
