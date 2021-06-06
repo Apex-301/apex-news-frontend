@@ -6,6 +6,8 @@ import { withAuth0 } from '@auth0/auth0-react';
 import MyFavoriteBooks from './myFavoriteBooks';
 import Profile from './profile';
 import Login from './login';
+import Bydate from './components/Bydate'
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -28,12 +30,11 @@ class App extends React.Component {
                 </Route>
                 <Route exact path="/profile">
                   <Profile></Profile>
-           
                 </Route>
               </Switch>
               {!isAuthenticated &&<Login></Login>}
             <Footer />
-         
+            <Bydate />
         </Router>
       </>
     )
