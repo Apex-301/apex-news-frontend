@@ -45,10 +45,6 @@ class App extends React.Component {
                   <Home/>
               
                 </Route>
-                <Route exact path="/profile">
-                  <Profile readLaterarticles={this.state.readLaterarticles} passingReadLaterData={this.passingReadLaterData} ></Profile>
-           
-                </Route>
                 <Route exact path="/byDate">
                   <Bydate></Bydate>
            
@@ -58,10 +54,14 @@ class App extends React.Component {
            
                 </Route>
                 <Route exact path="/MyNews">
-                 <MyNews passingReadLaterData={this.passingReadLaterData}></MyNews>
+                 {isAuthenticated&&<MyNews passingReadLaterData={this.passingReadLaterData}></MyNews>}
            
                 </Route>
                
+                <Route exact path="/profile">
+                {isAuthenticated&&<Profile readLaterarticles={this.state.readLaterarticles} passingReadLaterData={this.passingReadLaterData} ></Profile>}
+           
+                </Route>
                 <Route exact path="/aboutUs">
                  
            

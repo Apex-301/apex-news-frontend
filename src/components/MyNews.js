@@ -18,6 +18,7 @@ class MyNews extends Component {
     health:false,
     science:false,
     myFavCatRes:[],
+    sportsResp:[],
     // Add to watch later states
     name: '',
     urlToImage: '',
@@ -28,18 +29,64 @@ class MyNews extends Component {
 
 
         
+  }
+  // this.updateSport(event);
+  }
+
+
+
+
+ async componentDidMount(){
+   console.log('this.state.myFavCat',this.state.myFavCat);
+   let dataAfterReload= await axios.get(`${this.state.REACT_APP_SERVER}/reloadData`,{params:{email:this.props.auth0.user.email}});
+   console.log('dataAfterReload',dataAfterReload.data);
+   this.setState({
+     myFavCat : dataAfterReload.data[0],
+    sports: dataAfterReload.data[0].sports,
+    business:dataAfterReload.data[0].business,
+    technology:dataAfterReload.data[0].technology,
+    general:dataAfterReload.data[0].general,
+    health:dataAfterReload.data[0].health,
+    science:dataAfterReload.data[0].science,
+   });
+   let allRespArr = [];
+   //define requests to send requests to 3rd party API of favourite category news of user
+let objectToArr=Object.entries(this.state.myFavCat);   
+console.log('objectToArr',objectToArr);
+
+
+  objectToArr.forEach(async(item,index)=>{
+    // console.log('item[1]',item[1]);
+    // console.log('hello from function forEach');
+    if (!(item[0]=='_id')) {
+    // console.log('hello from if 1');
+      if (item[1]==true) {
+        let urlReq= `https://newsapi.org/v2/top-headlines?category=${item[0]}&apiKey=e73f2e3bd5fc4873801b5e3c8bcef6aa` 
+        let catResp = await axios.get(urlReq);
+        
+        allRespArr.push({name:item[0], data:catResp.data.articles});
+        
+        this.setState({
+          myFavCatRes:allRespArr
+        })
+        
+      }
+      console.log('allRespArr',this.state.myFavCatRes);
     }
-}
+    
+    //  item.map(item=>{
+      //   console.log('item',item);
+      //  })
+    });
 
-  // componentDidMount(){
-
-  // }
-
+  }
+  
   //define onsubmit function
   updateFav =async (event)=>{
-event.preventDefault();
-// console.log('this.state.myFavCat before',this.state.myFavCat);
-await this.setState({
+    event.preventDefault();
+    // console.log('this.state.myFavCat before',this.state.myFavCat);
+    
+    await this.setState({
   
     sports: event.target.sports.checked,
     business:event.target.business.checked,
@@ -50,6 +97,8 @@ await this.setState({
     
   
 })
+
+let allRespArr = [];
 //send req to backend
 let favCatResp = await axios.get(`${this.state.REACT_APP_SERVER}/favCat`,{params:{email:this.props.auth0.user.email,    sports:this.state.sports,  business:this.state.business,  technology:this.state.technology,  general:this.state.general,  health:this.state.health,   science:this.state.science}} )
 await this.setState({
@@ -62,14 +111,13 @@ let objectToArr=Object.entries(this.state.myFavCat);
 console.log('objectToArr',objectToArr);
 
 
-let allRespArr = [];
   objectToArr.forEach(async(item,index)=>{
     // console.log('item[1]',item[1]);
     // console.log('hello from function forEach');
     if (!(item[0]=='_id')) {
     // console.log('hello from if 1');
       if (item[1]==true) {
-        let urlReq= `https://newsapi.org/v2/top-headlines?category=${item[0]}&apiKey=fefe881ab37e4dfb8549c838a3228a39` 
+        let urlReq= `https://newsapi.org/v2/top-headlines?category=${item[0]}&apiKey=e73f2e3bd5fc4873801b5e3c8bcef6aa` 
         let catResp = await axios.get(urlReq);
         
         allRespArr.push({name:item[0], data:catResp.data.articles});
@@ -88,9 +136,11 @@ let allRespArr = [];
     });
     // console.log('this.state.scienceRes',this.state.scienceRes);
     // console.log('this.state.sportsRes',this.state.sportsRes);
-    console.log('this.state.sports',this.state.sports);
-
-
+    await this.setState({
+      sports:this.state.myFavCat.sports,
+    });
+    
+    console.log('this.state.sports from did mount',this.state.sports);
 
 
 }
@@ -145,11 +195,56 @@ addArticle = async (idx,categName) =>{
 
 
 }
-// updateSport =async (event)=>{
-//  await this.setState({
-//     sports: event.target.checked,
-//   })
-// }
+
+//create onChange function to update the status
+updateSport =async (event)=>{
+ await this.setState({
+    sports: event.target.checked,
+    // sports:
+  })
+ 
+  }
+  //create onChange function to update the status
+  updateBusiness =async (event)=>{
+  await this.setState({
+   business: event.target.checked,
+     // sports:
+   })
+  
+   }
+   //create onChange function to update the status
+   updateTechnology =async (event)=>{
+  await this.setState({
+    technology: event.target.checked,
+     // sports:
+   })
+  
+   }
+   //create onChange function to update the status
+   updateGeneral =async (event)=>{
+  await this.setState({
+    general: event.target.checked,
+     
+   })
+  
+   }
+   //create onChange function to update the status
+   updateHealth =async (event)=>{
+  await this.setState({
+    health: event.target.checked,
+     
+   })
+  
+   }
+   //create onChange function to update the status
+   updateScience =async (event)=>{
+  await this.setState({
+    science: event.target.checked,
+    
+   })
+  
+   }
+
 
 
     render() {
@@ -165,8 +260,8 @@ addArticle = async (idx,categName) =>{
         name="sports"
         type='checkbox'
         id={`inline-checkbox-1`}
-        // checked ={this.state.sports}
-        // onChange={this.updateSport}
+        checked ={this.state.sports}
+        onChange={this.updateSport}
       
       />
       <Form.Check
@@ -175,6 +270,8 @@ addArticle = async (idx,categName) =>{
         name="business"
         type='checkbox'
         id={`inline-checkbox-2`}
+        checked ={this.state.business}
+        onChange={this.updateBusiness}
       />
        <Form.Check
         inline
@@ -182,6 +279,8 @@ addArticle = async (idx,categName) =>{
         name="technology"
         type='checkbox'
         id={`inline-checkbox-2`}
+        checked ={this.state.technology}
+        onChange={this.updateTechnology}
       />
        <Form.Check
         inline
@@ -189,6 +288,8 @@ addArticle = async (idx,categName) =>{
         name="general"
         type='checkbox'
         id={`inline-checkbox-2`}
+        checked ={this.state.general}
+        onChange={this.updateGeneral}
       />
        <Form.Check
         inline
@@ -196,6 +297,8 @@ addArticle = async (idx,categName) =>{
         name="health"
         type='checkbox'
         id={`inline-checkbox-2`}
+        checked ={this.state.health}
+        onChange={this.updateHealth}
       />
        <Form.Check
         inline
@@ -203,6 +306,8 @@ addArticle = async (idx,categName) =>{
         name="science"
         type='checkbox'
         id={`inline-checkbox-2`}
+        checked ={this.state.science}
+        onChange={this.updateScience}
       />
     </div>
   }
