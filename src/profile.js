@@ -8,24 +8,38 @@ class Profile extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-          readLaterarticles : this.props.readLaterarticles,
+          readLaterarticles : [],
           REACT_APP_SERVER: process.env.REACT_APP_SERVER,
+          showRender : false,
       
       }
-      this.props.passingReadLaterData()
+      this.anotherFunction()
     }
-   
-    // componentDidMount(){
-    //     this.setState({
-    //         readLaterarticles : this.props.readLaterarticles,
-    //     })
-    // }
+   anotherFunction =async ()=>{
+    let choosenArticles = await axios.get(`${this.state.REACT_APP_SERVER}/choosenArticles`,{params:{email:this.props.auth0.user.email}})
+    await  this.setState({
+        readLaterarticles : choosenArticles.data,
+        showRender: true,
+      })
+      console.log('this.state.showRender after',this.state.showRender);
+      console.log('choosenArticles',choosenArticles);
+   }
+//    async componentDidMount(){
+
+//         let choosenArticles = await axios.get(`${this.state.REACT_APP_SERVER}/choosenArticles`,{params:{email:this.props.auth0.user.email}})
+//       await  this.setState({
+//           readLaterarticles : choosenArticles.data,
+//           showRender: true,
+//         })
+//         console.log('this.state.showRender after',this.state.showRender);
+//         console.log('this.state.readLaterarticles after',this.state.readLaterarticles);
+//     }
     deleteArticle=(async (idx,value)=>{
         const email= this.props.auth0.user.email;
         value.email=email;
-        console.log('{params:email,value}',{params:value});
+        // console.log('{params:email,value}',{params:value});
       let dataAfterDeleting= await axios.delete(`${this.state.REACT_APP_SERVER}/deleteArticle/${idx}`,{params:value,email})
-      console.log('dataAfterDeleting',dataAfterDeleting);
+    //   console.log('dataAfterDeleting',dataAfterDeleting);
        this.setState({
         readLaterarticles: dataAfterDeleting.data,
       });
@@ -44,11 +58,11 @@ class Profile extends React.Component{
             {/* {console.log('this.props.readLaterarticles',this.props.readLaterarticles[0].name)} */}
             {/* <h1>{this.props.readLaterarticles[0].name}</h1> */}
             <h1>Saved Articles :</h1>
-         {this.state.readLaterarticles.map((value,idx)=>{
+      { this.state.showRender&&  this.state.readLaterarticles.map((value,idx)=>{
              return(
-
-             <div key={idx}>
-             <Card className="text-center">
+               <>
+             {/* <div > */}
+             <Card className="text-center" key={idx}>
                  <Card.Header>{value.name}</Card.Header>
                  <Card.Body>
                      <Card.Img variant="top" src={value.urlToImage} style={{ width: '20rem', height: '20rem', margin: 'auto' }} />
@@ -61,10 +75,13 @@ class Profile extends React.Component{
                  </Card.Body>
                  <Card.Footer className="text-muted">Publish Date: {value.publishedAt}</Card.Footer>
              </Card>
-           </div>
+           {/* </div> */}
+           </>
              )
-         })}
+         })
+            }
 
+            {!(this.state.readLaterarticles.length)&& <h1>your have no saved articles</h1> }
             </>
         )
     }
