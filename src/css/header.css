@@ -1,0 +1,53 @@
+.navheader{
+  color:#eeebdd !important;
+  /* font-weight: bold; */
+  font-size: 20px;
+  /* font-weight: bold; */
+}
+
+.navheader:hover{
+  color:#810000 !important;
+  text-decoration: underline;
+  
+}
+
+.allheader{
+  background-color:#1b1717 !important;
+}
+#basic-nav-dropdown{
+  color:#eeebdd !important;
+  /* font-weight: bold; */
+  background-color: #1b1717 !important;
+  font-size: 20px;
+  border: solid 2px #eeebdd;
+  padding: 8px;
+  border-radius: 15px;
+  background-color: #810000 !important;
+  margin-right: -4em;
+
+}
+
+#basic-nav-dropdown:hover{
+  /* color:#ce1212 !important; */
+  background-color:#eeebdd !important;
+  color: #810000 !important;
+  border:#810000 solid 2px !important;
+  
+  
+}
+
+#homee{
+  margin-left: 26em !important;
+  /* border: solid 2px white; */
+}
+
+/* #imagee{
+  margin-left: -5em !important;
+  border: solid 2px white !important;
+} */
+#navvvitem{
+ background-color: white !important;
+}
+#navvvitem:hover{
+  background-color: white !important;
+ }

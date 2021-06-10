@@ -10,6 +10,8 @@ import Home from './components/Home';
 import Bydate from './components/Bydate';
 import SearchByLocation from './components/SearchByLocation';
 import MyNews from './components/MyNews';
+import AboutUs from './components/AboutUs';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -55,19 +57,31 @@ class App extends React.Component {
                 </Route>
                 <Route exact path="/MyNews">
                  {isAuthenticated&&<MyNews passingReadLaterData={this.passingReadLaterData}></MyNews>}
-           
+                 <br></br>
+             
+             
+             {!isAuthenticated &&<Login></Login>}
+             
+             
+             <br></br>
                 </Route>
                
                 <Route exact path="/profile">
                 {isAuthenticated&&<Profile readLaterarticles={this.state.readLaterarticles} passingReadLaterData={this.passingReadLaterData} ></Profile>}
-           
+                <br></br>
+             
+             
+             {!isAuthenticated &&<Login></Login>}
+             
+             
+             <br></br>
                 </Route>
                 <Route exact path="/aboutUs">
+                  <AboutUs></AboutUs>
                  
            
                 </Route>
               </Switch>
-              {!isAuthenticated &&<Login></Login>}
              
             <Footer />
          
