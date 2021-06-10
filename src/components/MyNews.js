@@ -45,7 +45,7 @@ class MyNews extends Component {
 
   async componentDidMount() {
     console.log('this.state.myFavCat', this.state.myFavCat);
-    let dataAfterReload = await axios.get(`${this.state.REACT_APP_SERVER}/reloadData`, { params: { email: this.props.auth0.user.email } });
+    let dataAfterReload = await axios.get(`http://localhost:3003/reloadData`, { params: { email: this.props.auth0.user.email } });
     console.log('dataAfterReload', dataAfterReload.data);
     this.setState({
       myFavCat: dataAfterReload.data[0],
@@ -68,7 +68,7 @@ class MyNews extends Component {
       if (!(item[0] == '_id')) {
         // console.log('hello from if 1');
         if (item[1] == true) {
-          let urlReq = `https://newsapi.org/v2/top-headlines?category=${item[0]}&apiKey=7095844fde7f49ae943b7be500c6c3af&language=en`
+          let urlReq = `https://newsapi.org/v2/top-headlines?category=${item[0]}&apiKey=fe6b789bc3fa417c99713c8ad99505b2&language=en`
           let catResp = await axios.get(urlReq);
 
           allRespArr.push({ name: item[0], data: catResp.data.articles });
@@ -90,7 +90,7 @@ class MyNews extends Component {
 
   //define onsubmit function
   updateFav = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     // console.log('this.state.myFavCat before',this.state.myFavCat);
     console.log('event.target.sports.checked before on submit',event.target.sports.checked);
   
@@ -111,7 +111,7 @@ class MyNews extends Component {
     console.log('this.state.sports after on submit',this.state.sports);
     let allRespArr = [];
     //send req to backend
-    let favCatResp = await axios.get(`${this.state.REACT_APP_SERVER}/favCat`, { params: { email: this.props.auth0.user.email, sports: this.state.sports, business: this.state.business, technology: this.state.technology, entertainment: this.state.entertainment, health: this.state.health, science: this.state.science } })
+    let favCatResp = await axios.get(`http://localhost:3003/favCat`, { params: { email: this.props.auth0.user.email, sports: this.state.sports, business: this.state.business, technology: this.state.technology, entertainment: this.state.entertainment, health: this.state.health, science: this.state.science } })
     await this.setState({
       myFavCat: favCatResp.data[0],
 
@@ -128,7 +128,7 @@ class MyNews extends Component {
       if (!(item[0] == '_id')) {
         // console.log('hello from if 1');
         if (item[1] == true) {
-          let urlReq = `https://newsapi.org/v2/top-headlines?category=${item[0]}&apiKey=7095844fde7f49ae943b7be500c6c3af&language=en`
+          let urlReq = `https://newsapi.org/v2/top-headlines?category=${item[0]}&apiKey=fe6b789bc3fa417c99713c8ad99505b2&language=en`
           let catResp = await axios.get(urlReq);
 
           allRespArr.push({ name: item[0], data: catResp.data.articles });
@@ -197,7 +197,7 @@ class MyNews extends Component {
     //    publishedAt: this.state.publishedAt
     //  }
 
-    let ReqToDBReadLater = await axios.post(`${this.state.REACT_APP_SERVER}/addArticle`, chosenArticleData)
+    let ReqToDBReadLater = await axios.post(`http://localhost:3003/addArticle`, chosenArticleData)
     console.log('ReqToDBReadLater', ReqToDBReadLater);
     this.props.passingReadLaterData(ReqToDBReadLater.data);
     // this.setState({

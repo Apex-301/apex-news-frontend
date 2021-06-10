@@ -23,7 +23,7 @@ constructor(props){
 async componentDidMount(){
 
   //send req to newsAPI to get sample of sports news
- let categ1 = await axios.get("https://newsapi.org/v2/everything?qInTitle=sports&sortBy=popularity&apiKey=7095844fde7f49ae943b7be500c6c3af&language=en");
+ let categ1 = await axios.get("https://newsapi.org/v2/everything?qInTitle=sports&sortBy=popularity&apiKey=fe6b789bc3fa417c99713c8ad99505b2&language=en");
 await this.setState({
   //  categ1 : categ1.data.articles.slice(1,4),
    categ1 : categ1.data.articles[1],
@@ -34,7 +34,7 @@ await this.setState({
 console.log('this.state.categ1',this.state.categ1);
 
 //send req to newsAPI to get sample of technology news
-let categ2 = await axios.get("https://newsapi.org/v2/everything?qInTitle=technology&sortBy=popularity&apiKey=7095844fde7f49ae943b7be500c6c3af&language=en");
+let categ2 = await axios.get("https://newsapi.org/v2/everything?qInTitle=technology&sortBy=popularity&apiKey=fe6b789bc3fa417c99713c8ad99505b2&language=en");
 await this.setState({
   //  categ2 : categ2.data.articles.slice(1,4),
    categ2 : categ2.data.articles[0],
@@ -43,7 +43,7 @@ await this.setState({
 });
 
 // send req to newsAPI to get sample of entertainment news
-let categ3 = await axios.get("https://newsapi.org/v2/everything?qInTitle=entertainment&sortBy=popularity&apiKey=7095844fde7f49ae943b7be500c6c3af&language=en");
+let categ3 = await axios.get("https://newsapi.org/v2/everything?qInTitle=entertainment&sortBy=popularity&apiKey=fe6b789bc3fa417c99713c8ad99505b2&language=en");
 await this.setState({
   //  categ3 : categ3.data.articles.slice(1,4),
    categ3 : categ3.data.articles[0],
@@ -54,11 +54,11 @@ await this.setState({
 });
 
 // send req to newsAPI to get sample of health news
-let categ4 = await axios.get("https://newsapi.org/v2/top-headlines?category=health&apiKey=7095844fde7f49ae943b7be500c6c3af&language=en");
+let categ4 = await axios.get("https://newsapi.org/v2/top-headlines?category=health&apiKey=fe6b789bc3fa417c99713c8ad99505b2&language=en");
 await this.setState({
   //  categ3 : categ3.data.articles.slice(1,4),
-   categ4 : categ4.data.articles[5],
-   publishedDatehealth: categ4.data.articles[5].publishedAt.substring(0, 10),
+   categ4 : categ4.data.articles[2],
+   publishedDatehealth: categ4.data.articles[2].publishedAt.substring(0, 10),
 
 
 

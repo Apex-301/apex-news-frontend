@@ -18,7 +18,7 @@ class Profile extends React.Component{
       this.anotherFunction()
     }
    anotherFunction =async ()=>{
-    let choosenArticles = await axios.get(`${this.state.REACT_APP_SERVER}/choosenArticles`,{params:{email:this.props.auth0.user.email}})
+    let choosenArticles = await axios.get(`http://localhost:3003/choosenArticles`,{params:{email:this.props.auth0.user.email}})
     await  this.setState({
         readLaterarticles : choosenArticles.data,
         showRender: true,
@@ -40,7 +40,7 @@ class Profile extends React.Component{
         const email= this.props.auth0.user.email;
         value.email=email;
         // console.log('{params:email,value}',{params:value});
-      let dataAfterDeleting= await axios.delete(`${this.state.REACT_APP_SERVER}/deleteArticle/${idx}`,{params:value,email})
+      let dataAfterDeleting= await axios.delete(`http://localhost:3003/deleteArticle/${idx}`,{params:value,email})
     //   console.log('dataAfterDeleting',dataAfterDeleting);
        this.setState({
         readLaterarticles: dataAfterDeleting.data,
@@ -104,7 +104,7 @@ class Profile extends React.Component{
         <p className="card-text">   {value.description}</p>
         {/* <a href="#" className="btnb mr-2" onClick={()=>this.deleteArticle(idx,value)}> Delete</a>
         <a href={value.url} className="btnb">Visit Site</a> */}
-        <a href="#" className="btnsaveArticle btnsaveArticle--with-icon" onClick={()=>this.deleteArticle(idx,value)}><i className="btnsaveArticle-icon fa fa-times"></i>Delete</a>
+        <a  className="btnsaveArticle btnsaveArticle--with-icon" onClick={()=>this.deleteArticle(idx,value)}><i className="btnsaveArticle-icon fa fa-times"></i>Delete</a>
         <a href={value.url} className="btnsaveArticle btnsaveArticle--with-icon" ><i className="btnsaveArticle-icon fa fa-long-arrow-right"></i>Visit Site</a>
         </div>
 
@@ -124,7 +124,7 @@ class Profile extends React.Component{
 
       </div>
 
-            {!(this.state.readLaterarticles.length)&& <h1>your have no saved articles</h1> }
+            {!(this.state.readLaterarticles.length)&& <h1>You have no saved articles</h1> }
 
             
             </>

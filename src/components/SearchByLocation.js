@@ -30,7 +30,7 @@ class SearchByLocation extends Component {
         console.log(this.state.imgId);
 
 
-        let locationUrl = `https://newsapi.org/v2/top-headlines?country=${this.state.imgId}&apiKey=7095844fde7f49ae943b7be500c6c3af`;
+        let locationUrl = `https://newsapi.org/v2/top-headlines?country=${this.state.imgId}&apiKey=fe6b789bc3fa417c99713c8ad99505b2`;
 
         let newsResult = await axios.get(locationUrl);
 

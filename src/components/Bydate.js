@@ -30,7 +30,7 @@ class Bydate extends Component {
   }
   getDate = async () => {
     try {
-      const dateNews = await axios.get(`https://newsapi.org/v2/everything?domains=techcrunch.com,thenextweb.com&apiKey=7095844fde7f49ae943b7be500c6c3af&language=en&to=${this.state.date}`)
+      const dateNews = await axios.get(`https://newsapi.org/v2/everything?domains=techcrunch.com,thenextweb.com&apiKey=fe6b789bc3fa417c99713c8ad99505b2&language=en&to=${this.state.date}`)
       // const cats = await axios.get(`${this.state.server}/cat?name=${this.state.name}`);
       this.setState({
         allData: dateNews.data.articles,
