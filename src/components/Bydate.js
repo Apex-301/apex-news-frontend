@@ -17,7 +17,8 @@ class Bydate extends Component {
       date: '',
       //   pageNum:1,
       showDate: false,
-      showtodays: false
+      showtodays: false,
+      REACT_APP_API_KEY:process.env.REACT_APP_API_KEY,
     }
     console.log("todays date", this.state.date)
   }
@@ -30,7 +31,7 @@ class Bydate extends Component {
   }
   getDate = async () => {
     try {
-      const dateNews = await axios.get(`https://newsapi.org/v2/everything?domains=techcrunch.com,thenextweb.com&apiKey=7095844fde7f49ae943b7be500c6c3af&language=en&to=${this.state.date}`)
+      const dateNews = await axios.get(`https://newsapi.org/v2/everything?domains=techcrunch.com,thenextweb.com&apiKey=${this.state.REACT_APP_API_KEY}&language=en&to=${this.state.date}`)
       // const cats = await axios.get(`${this.state.server}/cat?name=${this.state.name}`);
       this.setState({
         allData: dateNews.data.articles,
