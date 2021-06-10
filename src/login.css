@@ -2,3 +2,13 @@
   margin: auto;
   text-align: center;
 }
+
+#titleee1{
+ font-weight: bold;
+ font-size: 35px;
+}
+#message11{
+ font-size: x-large;
+ /* margin-top: 30px;
+ margin-bottom: 50px; */
+}

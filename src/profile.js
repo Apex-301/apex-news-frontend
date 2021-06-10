@@ -3,6 +3,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import {Button,Card, ListGroup} from 'react-bootstrap';
 import axios from 'axios';
 import { withAuth0 } from '@auth0/auth0-react';
+import './css/profile.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 class Profile extends React.Component{
     constructor(props) {
@@ -50,39 +52,83 @@ class Profile extends React.Component{
         const { user, isAuthenticated } = this.props.auth0;
         return (
             <>
-            {isAuthenticated&&<>
-            <img src={user.picture} alt =''></img>
-            <h1>{user.name}</h1>
-            <h2>{user.email}</h2>
-            </>}
+           {isAuthenticated && <div>
+          <div className="cardProfile1">
+            <img src={user.picture}  className="cardProfile1__image"/>
+            <p className="cardProfile1__name">{user.name}</p>
+            <p className="cardProfile1__name">{user.email}</p>
+            <ul className="social-icons1">
+              <li><a href="#"><i className="fa fa-instagram"></i></a></li>
+              <li><a href="#"><i className="fa fa-twitter"></i></a></li>
+              <li><a href="#"><i className="fa fa-linkedin"></i></a></li>
+              <li><a href="#"><i className="fa fa-codepen"></i></a></li>
+            </ul>
+          </div>
+        </div>}
+
+
+{/* {isAuthenticated&&
+
+<div classNameName="containerssss">
+        <div classNameName="cover-photo">
+          <img src={user.picture} classNameName="profile" />
+        </div>
+        <div classNameName="profile-name">{user.name}</div> 
+      </div>
+
+    } */}
+
+
             {/* {console.log('this.props.readLaterarticles',this.props.readLaterarticles[0].name)} */}
             {/* <h1>{this.props.readLaterarticles[0].name}</h1> */}
-            <h1>Saved Articles :</h1>
+            <br></br>
+            <br></br>
+            <hr></hr>
+            <h1 id='savedArt'>Saved Articles :</h1>
+            <hr></hr>
+            <br></br>
+<div className="containerprofile mx-auto mt-4">
+  <div className="row">
       { this.state.showRender&&  this.state.readLaterarticles.map((value,idx)=>{
              return(
                <>
-             {/* <div > */}
-             <Card className="text-center" key={idx}>
-                 <Card.Header>{value.name}</Card.Header>
-                 <Card.Body>
-                     <Card.Img variant="top" src={value.urlToImage} style={{ width: '20rem', height: '20rem', margin: 'auto' }} />
-                     <Card.Title>{value.title}</Card.Title>
-                     <Card.Text style={{ overflow: 'auto', height: '3rem' }}>
-                     {value.description}
-                     </Card.Text>
-                     <Button onClick={()=>this.deleteArticle(idx,value)} >delete</Button>
-                     <a href={value.url}><Button >Go to Article</Button></a>
-                 </Card.Body>
-                 <Card.Footer className="text-muted">Publish Date: {value.publishedAt}</Card.Footer>
-             </Card>
-           {/* </div> */}
+            {/* <div > */}
+            <div className="col-md-4">
+          
+          <div className="card">
+      <img src={value.urlToImage} alt="..." className="imageProfile"></img>
+    
+      <div className="card-body">
+        <h5 className="card-title">{value.title}</h5>
+    
+        <p className="card-text">   {value.description}</p>
+        {/* <a href="#" className="btnb mr-2" onClick={()=>this.deleteArticle(idx,value)}> Delete</a>
+        <a href={value.url} className="btnb">Visit Site</a> */}
+        <a href="#" className="btnsaveArticle btnsaveArticle--with-icon" onClick={()=>this.deleteArticle(idx,value)}><i className="btnsaveArticle-icon fa fa-times"></i>Delete</a>
+        <a href={value.url} className="btnsaveArticle btnsaveArticle--with-icon" ><i className="btnsaveArticle-icon fa fa-long-arrow-right"></i>Visit Site</a>
+        </div>
+
+
+        </div>
+        </div>
+
+
+
+ 
            </>
              )
          })
             }
 
+</div> 
+
+      </div>
+
             {!(this.state.readLaterarticles.length)&& <h1>your have no saved articles</h1> }
+
+            
             </>
+            
         )
     }
 }

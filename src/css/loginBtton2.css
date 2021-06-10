@@ -1,0 +1,20 @@
+#loginBtton2{
+ width: 125px;
+ height: 50px;
+ background-color: #eeebdd;
+ color: #810000;
+ font-size: larger;
+ font-weight: bold;
+ border-radius: 10px;
+ border: 2px solid #810000;
+ /* position: relative; */
+ /* margin-bottom: 30px !important; */
+}
+
+#loginBtton2:hover{
+    
+    background-color: #810000;
+    color: #eeebdd;
+    border: 2px solid #eeebdd;
+    /* transform: scale(1.1); */
+}
