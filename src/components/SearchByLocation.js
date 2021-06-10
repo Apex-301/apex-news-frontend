@@ -17,6 +17,7 @@ class SearchByLocation extends Component {
             showFlags: true,
             showNews: false,
             showButton: false,
+            REACT_APP_API_KEY:process.env.REACT_APP_API_KEY,
            
         }
     }
@@ -30,7 +31,7 @@ class SearchByLocation extends Component {
         console.log(this.state.imgId);
 
 
-        let locationUrl = `https://newsapi.org/v2/top-headlines?country=${this.state.imgId}&apiKey=7095844fde7f49ae943b7be500c6c3af`;
+        let locationUrl = `https://newsapi.org/v2/top-headlines?country=${this.state.imgId}&apiKey=${this.state.REACT_APP_API_KEY}`;
 
         let newsResult = await axios.get(locationUrl);
 
